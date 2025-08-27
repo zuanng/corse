@@ -37,3 +37,40 @@ def postform(request):
 
     response += dumpdata('POST', request.POST)
     return HttpResponse(response)
+
+from django.middleware.csrf import get_token
+
+def csrfform(request):
+    response = """<p>CSRF Success guessing game...</p>
+        <form method="POST">
+        <p><label for="guess">Input Guess</label>
+        <input type="text" name="guess" size="40" id="guess"/></p>
+        <input type="hidden" name="csrfmiddlewaretoken"
+            value="__token__"/>
+        <input type="submit"/>
+        </form>"""
+
+    token = get_token(request)
+    response = response.replace('__token__', html.escape(token))
+    response += dumpdata('POST', request.POST)
+    return HttpResponse(response)
+
+# Call as checkguess('42')
+def checkguess(guess) :
+    msg = False
+    if guess :
+        try:
+            if int(guess) < 42 :
+                msg = 'Guess too low'
+            elif int(guess) > 42 :
+                msg = 'Guess too high'
+            else:
+                msg = 'Congratulations!'
+        except:
+            msg = 'Bad format for guess:' + html.escape(guess)
+    return msg
+
+def guess(request):
+    guess = request.POST.get('guess')
+    msg = checkguess(guess)
+    return render(request, 'getpost/guess.html', {'message' : msg })
