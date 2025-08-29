@@ -11,4 +11,6 @@ urlpatterns = [
     path('cat/<int:pk_from_url>', views.CatDetailView.as_view(), name='cat'),
     path('dogs', views.DogListView.as_view(), name='dogs'),
     path('dog/<int:pk>', views.DogDetailView.as_view(), name='dog'),
+    path('horses', views.HorseListView.as_view(), name='horses'),
+    path('horse/<int:pk>', views.HorseDetailView.as_view(), name='horse'),
 ]

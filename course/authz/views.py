@@ -9,9 +9,9 @@ class ManualProtect(View) :
         if not request.user.is_authenticated :
             loginurl = reverse('login')+'?'+urlencode({'next': request.path})
             return redirect(loginurl)
-        return render(request, 'auth/main.html')
+        return render(request, 'authz/main.html')
 
 # Use LoginRequiredmixin
 class ProtectView(LoginRequiredMixin, View) :
     def get(self, request):
-        return render(request, 'auth/main.html')
+        return render(request, 'authz/main.html')

@@ -33,3 +33,12 @@ class DogDetailView(View):
         obj = self.model.objects.get(pk=pk)
         cntx = { modelname : obj }
         return render(request, 'genericview/'+modelname+'_detail.html', cntx)
+
+# save time and use the built-in generics
+from django.views import generic
+
+class HorseListView(generic.ListView):
+    model = Horse
+
+class HorseDetailView(generic.DetailView):
+    model = Horse
