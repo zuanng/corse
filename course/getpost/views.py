@@ -74,3 +74,28 @@ def guess(request):
     guess = request.POST.get('guess')
     msg = checkguess(guess)
     return render(request, 'getpost/guess.html', {'message' : msg })
+
+class ClassyView(View) :
+    def get(self, request):
+        return render(request, 'getpost/guess.html')
+
+    def post(self, request):
+        guess = request.POST.get('guess')
+        msg = checkguess(guess)
+        return render(request, 'getpost/guess.html', {'message' : msg })
+
+# Send a 302 and Location: header to the browser
+def bounce(request) :
+    return HttpResponseRedirect('https://www.dj4e.com/simple.htm')
+
+class AwesomeView(View) :
+    def get(self, request):
+        msg = request.session.get('msg', False)
+        if ( msg ) : del(request.session['msg'])
+        return render(request, 'getpost/guess.html', {'message' : msg })
+
+    def post(self, request):
+        guess = request.POST.get('guess')
+        msg = checkguess(guess)
+        request.session['msg'] = msg
+        return redirect(request.path)

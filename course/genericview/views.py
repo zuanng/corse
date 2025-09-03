@@ -1,4 +1,4 @@
-from gview.models import Cat, Dog
+from genericview.models import Cat, Dog, Horse
 
 from django.views import View
 from django.shortcuts import render

@@ -5,3 +5,6 @@ class Cat(models.Model):
 
 class Dog(models.Model):
     name = models.CharField(max_length=128)
+
+class Horse(models.Model):
+    name = models.CharField(max_length=128)
