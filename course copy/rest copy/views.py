@@ -18,16 +18,18 @@ from rest_framework.throttling import UserRateThrottle, AnonRateThrottle
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_page
 from django.core.cache import cache
-    
-class CatCursorPagination(CursorPagination):
-    page_size = 10
-    ordering = '-created_at'  # Sort by newest first
-    cursor_query_param = 'cursor'
 
-class BreedCursorPagination(CursorPagination):
+class CustomCursorPagination(CursorPagination):
     page_size = 10
-    ordering = '-created_at'
+    max_page_size = 100
+    ordering = ('-created_at', '-id')
     cursor_query_param = 'cursor'
+    
+    # Thêm các trường được phép sắp xếp
+    ordering_fields = (
+        ('created_at', '-created_at'),
+        ('id', '-id'),
+    )
 
 class BreedViewSet(viewsets.ModelViewSet):
     """
@@ -39,7 +41,7 @@ class BreedViewSet(viewsets.ModelViewSet):
 
     queryset = Breed.objects.all()      
     serializer_class = BreedSerializer
-    pagination_class = BreedCursorPagination
+    pagination_class = CustomCursorPagination
     ordering = ['-created_at', 'id']
 
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
@@ -113,7 +115,7 @@ class CatViewSet(viewsets.ModelViewSet):
     throttle_scope = 'cats' 
 
     serializer_class = CatSerializer
-    pagination_class = CatCursorPagination
+    pagination_class = CustomCursorPagination
     ordering = ['-created_at', 'id']
     
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
