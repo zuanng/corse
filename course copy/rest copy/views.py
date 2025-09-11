@@ -25,12 +25,6 @@ class CustomCursorPagination(CursorPagination):
     ordering = ("-created_at", "-id")
     cursor_query_param = "cursor"
 
-    # Thêm các trường được phép sắp xếp
-    ordering_fields = (
-        ("created_at", "-created_at"),
-        ("id", "-id"),
-    )
-
 
 class BreedViewSet(viewsets.ModelViewSet):
     """
@@ -44,12 +38,10 @@ class BreedViewSet(viewsets.ModelViewSet):
     queryset = Breed.objects.all()
     serializer_class = BreedSerializer
     pagination_class = CustomCursorPagination
-    ordering = ["-created_at", "id"]
 
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
     search_fields = ["name"]
-    ordering_fields = ["name", "cat_count"]
-    ordering = ["name"]
+    ordering_fields = ["name", "created_at"]
 
     @method_decorator(cache_page(60 * 15))  # Cache trong 15 phút
     def list(self, request, *args, **kwargs):
@@ -122,7 +114,6 @@ class CatViewSet(viewsets.ModelViewSet):
 
     serializer_class = CatSerializer
     pagination_class = CustomCursorPagination
-    ordering = ["-created_at", "id"]
 
     filter_backends = [
         DjangoFilterBackend,
@@ -131,8 +122,7 @@ class CatViewSet(viewsets.ModelViewSet):
     ]
     filterset_class = CatFilter
     search_fields = ["nickname", "breed__name", "foods"]
-    ordering_fields = ["nickname", "weight"]
-    ordering = ["nickname"]
+    ordering_fields = ["nickname", "weight", "created_at"]
 
     @method_decorator(cache_page(60 * 5))  # Cache trong 5 phút
     def list(self, request, *args, **kwargs):
