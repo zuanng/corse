@@ -11,7 +11,8 @@ router.register(r'cats', views.CatViewSet)
 # Ngoài ra, bao gồm login URLs cho browsable API
 urlpatterns = [
     path('', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    path('api-auth/',
+         include('rest_framework.urls', namespace='rest_framework'))
 ]
 
 # Chỉ thêm debug toolbar URLs trong development
