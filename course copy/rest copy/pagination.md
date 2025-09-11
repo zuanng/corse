@@ -26,7 +26,7 @@
 | 6  | F    | 2024-01-06 |
 | 7  | G    | 2024-01-07 |
 
-Khi user xem trang 1 với `LIMIT = 3 OFFSET = 0`, cùng lúc đó `id = 1` bị xoá. Khi đó sang trang 2 sẽ bắt đầu với `id = 5` làm `id = 4` biến mất.
+Khi user xem trang 1 với `LIMIT = 3 OFFSET = 0`, cùng lúc đó `id = 1` bị xoá. Khi đó sang trang 2 sẽ bắt đầu với `id = 5` làm `id = 4` 'biến mất'.
 
 - Tốn tài nguyên: OFFSET càng lớn càng chậm
 
