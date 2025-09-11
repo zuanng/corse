@@ -52,6 +52,17 @@ Khi user xem trang 1 với `LIMIT = 3 OFFSET = 0`, cùng lúc đó `id = 1` bị
 
 (Kết hợp `ORDER BY` để lọc được chính xác)
 
+Lúc này, client gửi request `GET /posts?base64(cursor=2025-09-09T12:00:00Z|42)&limit=...` (mặc định lấy cũ hơn từ 12:00 khi `ORDER BY DESC`, nếu muốn lấy mới hơn thì có `&direction=previous`). Sever chạy query và trả về 
+```
+{
+  "results": [ ],
+  "next_cursor": "",
+  "previous_cursor": ""
+}
+```
+
+-> Client dùng `next_cursor` để lấy tiếp dữ liệu cũ hơn và `previous_cursor` để lấy ngược dữ liệu mới hơn
+
 ## Ưu điểm:
 
 - Hiệu năng cao: Luôn nhanh bất kể vị trí và độ lớn dữ liệu vì Cursor trỏ đến một giá trị cụ thể, không phải vị trí
