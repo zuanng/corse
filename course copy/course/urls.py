@@ -4,7 +4,7 @@ from django.conf import settings
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("api/", include("rest_copy.urls")),
+    path("api/", include("drf.urls")),
 ]
 
 if settings.DEBUG:

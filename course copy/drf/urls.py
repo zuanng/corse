@@ -4,7 +4,7 @@ from . import views
 
 router = routers.DefaultRouter()
 router.register(r"breeds", views.BreedViewSet)
-router.register(r"cats", views.CatViewSet)
+router.register(r"cats", views.CatViewSet, basename="cat")
 
 urlpatterns = [
     path("", include(router.urls)),

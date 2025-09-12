@@ -35,7 +35,10 @@ class Migration(migrations.Migration):
                         ],
                     ),
                 ),
-                ("created_at", models.DateTimeField(auto_now_add=True, db_index=True)),
+                (
+                    "created_at",
+                    models.DateTimeField(auto_now_add=True, db_index=True),
+                ),
             ],
         ),
         migrations.CreateModel(
@@ -63,12 +66,15 @@ class Migration(migrations.Migration):
                 ),
                 ("weight", models.PositiveIntegerField()),
                 ("foods", models.CharField(max_length=300)),
-                ("created_at", models.DateTimeField(auto_now_add=True, db_index=True)),
+                (
+                    "created_at",
+                    models.DateTimeField(auto_now_add=True, db_index=True),
+                ),
                 (
                     "breed",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        to="rest_copy.breed",
+                        to="drf.breed",
                     ),
                 ),
             ],
